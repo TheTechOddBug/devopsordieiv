@@ -5,16 +5,27 @@ services:
     image: 'gitlab/gitlab-ce:latest'
     container_name: dood-gitlab
     restart: always
+    networks:
+      - dood_network
     hostname: 'gitlab.example.com'
     environment:
       GITLAB_OMNIBUS_CONFIG: |
         external_url 'https://gitlab.example.com'
+        gitlab_rails['initial_root_password'] = "initialRootPW"
         # Add any other gitlab.rb configuration here, each on its own line
     ports:
       - '80:80'
       - '443:443'
       - '2222:22'
     volumes:
-      - '/srv/gitlab/config:/etc/gitlab'
-      - '/srv/gitlab/logs:/var/log/gitlab'
-      - '/srv/gitlab/data:/var/opt/gitlab'
+      - etc_gitlab:/etc/gitlab
+      - logs_gitlab:/var/log/gitlab
+      - data_gitlab:/var/opt/gitlab
+
+volumes:
+    etc_gitlab:
+    logs_gitlab:
+    data_gitlab:
+
+networks:
+    dood_network:
