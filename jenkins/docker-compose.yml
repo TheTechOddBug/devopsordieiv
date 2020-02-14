@@ -1,12 +1,12 @@
 version: '3.7'
 
-services:
+services: 
 
     jenkins:
-        image: jenkins/jenkins:lts
+        image: dood-jenkins-image:latest
         container_name: dood-jenkins
         restart: always
-        networks:
+        networks: 
             - dood_network
         ports:
             - 8090:8080
@@ -24,5 +24,5 @@ volumes:
     jenkins_resources:
     jenkins_backup:
 
-networks:
+networks: 
     dood_network:
